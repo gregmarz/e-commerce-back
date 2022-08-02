@@ -33,6 +33,12 @@ router.post("/", async (req, res) => {
   // create a new tag
   try {
     const tagData = await Tag.create(req.body);
+
+    if (!tagData) {
+      res.status(404).json({ message: "No related id" });
+      return;
+    }
+
     res.status(200).json(tagData);
   } catch (err) {
     console.log(err);

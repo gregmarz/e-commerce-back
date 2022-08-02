@@ -17,6 +17,12 @@ router.get("/:id", async (req, res) => {
     const catData = await Category.findByPk(req.params.id, {
       include: [{ model: Product }],
     });
+
+    if (!catData) {
+      res.status(404).json({ message: "No related id" });
+      return;
+    }
+
     res.status(200).json(catData);
   } catch (err) {
     console.log(err);
